@@ -1,0 +1,27 @@
+version: 0.1
+component: build
+
+timeoutInSeconds: 600
+
+shell: bash
+
+phases:
+  install:
+    commands:
+      - echo "Installing Maven"
+      - mvn -version
+
+  build:
+    commands:
+      - echo "Cleaning and building project"
+      - mvn clean install -DskipTests
+
+      - echo "Running tests"
+      - mvn test
+
+      - echo "Packaging application"
+      - mvn package
+
+artifacts:
+  files:
+    - target/*.jar
