@@ -5,17 +5,20 @@ timeoutInSeconds: 600
 
 steps:
   - type: Command
-    name: Debug
+    name: Show Project Structure
     command: |
-      echo "Listing files"
+      echo "Current directory:"
+      pwd
+      echo "Files:"
       ls -la
+
+  - type: Command
+    name: Check Maven
+    command: |
+      mvn -version
 
   - type: Command
     name: Build Project
     command: |
+      echo "Building Maven project..."
       mvn clean compile
-
-outputArtifacts:
-  - name: build_output
-    type: BINARY
-    location: target
