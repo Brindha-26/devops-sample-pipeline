@@ -3,25 +3,32 @@ component: build
 
 timeoutInSeconds: 600
 
-shell: bash
+steps:
+  - type: Command
+    name: Install Maven
+    command: |
+      echo "Checking Maven version"
+      mvn -version
 
-phases:
-  install:
-    commands:
-      - echo "Installing Maven"
-      - mvn -version
+  - type: Command
+    name: Build Application
+    command: |
+      echo "Cleaning and building project"
+      mvn clean install -DskipTests
 
-  build:
-    commands:
-      - echo "Cleaning and building project"
-      - mvn clean install -DskipTests
+  - type: Command
+    name: Run Tests
+    command: |
+      echo "Running tests"
+      mvn test
 
-      - echo "Running tests"
-      - mvn test
+  - type: Command
+    name: Package Application
+    command: |
+      echo "Packaging application"
+      mvn package
 
-      - echo "Packaging application"
-      - mvn package
-
-artifacts:
-  files:
-    - target/*.jar
+outputArtifacts:
+  - name: build_output
+    type: BINARY
+    location: target
