@@ -5,10 +5,15 @@ timeoutInSeconds: 600
 
 steps:
   - type: Command
-    name: Build JavaFX Project
+    name: Debug
     command: |
-      echo "Building project"
-      mvn clean package -DskipTests
+      echo "Listing files"
+      ls -la
+
+  - type: Command
+    name: Build Project
+    command: |
+      mvn clean compile
 
 outputArtifacts:
   - name: build_output
